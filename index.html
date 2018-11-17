@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link href="./static/styles.css" rel="stylesheet" type="text/css">
+    <link href="./static/sheets-of-paper.css" rel="stylesheet" type="text/css">
+    <link href="./static/ruler.css" rel="stylesheet" type="text/css">
+    <script>window.$ = window.jQuery = require('./static/jquery.js');</script>
+    <script>
+
+    </script> 
+
+  </head>
+  <body>
+      <div class="home-screen">
+        <div class="no-files-window">
+
+           <p class="no-files-text">Welcome to [NAME]!</p>
+           <p class="no-files-text">It seems like you haven't created any files yet!</p>
+           <p class="no-files-text">Click 'Create New File' below to create a new Script or Play,
+              <br> or go to file -> New File
+           </p>
+
+           <a id="create-new-file-link" href="#"><p id="create-new-file">Create New File</p></a>
+
+        </div>
+
+        <div class="recent-files-window">
+            
+        </div>
+        
+      </div>
+       <div class="ruler"></div>
+      <div class="document-editor">
+
+          <!--Must be named ruler-->
+         
+
+          <!--<div class="document">
+
+            <div class="individual-page">
+        
+              <div class="a4-header page">
+              </div>
+
+              <div class="a4 page" contenteditable="true" role="textbox"><div></div>
+              </div>
+
+              <div class="a4-footer page">
+              </div>
+        
+            </div>
+
+        </div>-->
+      </div>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+
+
+  </body>
+</html>

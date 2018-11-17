@@ -1,0 +1,35 @@
+/*!
+ * HTML-Sheets-of-Paper (https://github.com/delight-im/HTML-Sheets-of-Paper)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+ */
+
+@import "sheets-of-paper.css";
+
+.page, .ustabloid, .ustabloid-header, .ustabloid-footer{
+	width: 27.9cm;
+	min-height: 43.2cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+}
+
+.ustabloid-header{
+
+	min-height:2cm;
+
+}
+
+.ustabloid-footer{
+
+	min-height: 2cm;
+}
+/* Use CSS Paged Media to switch from continuous documents to sheet-like documents with separate pages */
+/*@page {
+	
+	size: ledger portrait;
+
+	margin-left: 2cm;
+	margin-top: 2cm;
+	margin-right: 2cm;
+	margin-bottom: 2cm;
+}*/

@@ -1,0 +1,37 @@
+/*!
+ * HTML-Sheets-of-Paper (https://github.com/delight-im/HTML-Sheets-of-Paper)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+ */
+
+@import "sheets-of-paper.css";
+
+.page, .uslegal, .uslegal-header, .uslegal-footer{
+	width: 21.6cm;
+	min-height: 35.6cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+}
+
+.uslegal-header{
+
+	min-height:2cm;
+
+}
+
+.uslegal-footer{
+
+	min-height:2cm;
+}
+
+/* Use CSS Paged Media to switch from continuous documents to sheet-like documents with separate pages */
+/*@page {
+	
+	size: legal portrait;
+
+	margin-left: 2cm;
+	margin-top: 2cm;
+	margin-right: 2cm;
+	margin-bottom: 2cm;
+}
+*/

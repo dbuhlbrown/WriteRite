@@ -1,0 +1,45 @@
+.home-screen{
+
+    height:100%;
+    width:100%;
+}
+
+.document-editor{
+
+    display:none;
+}
+.no-files-window{
+
+	background-color: #fff;
+}
+.no-files-text{
+
+	font-size:20px;
+	font-family: sans-serif;
+	text-align:center;
+
+}
+
+#create-new-file{
+
+	font-size:25px;
+	font-family: sans-serif;
+	text-align:center;
+    background-color: #fff;
+}
+
+
+#create-new-file-link:link, #create-new-file-link:visited {
+    background-color: #fff;
+    color: black;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width:100%;
+}
+
+
+#create-new-file-link:hover, #create-new-file-link:active {
+    background-color: #fff;
+}

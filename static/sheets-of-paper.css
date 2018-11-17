@@ -1,0 +1,216 @@
+/*!
+ * HTML-Sheets-of-Paper (https://github.com/delight-im/HTML-Sheets-of-Paper)
+ * Copyright (c) delight.im (https://www.delight.im/)
+ * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+ */
+
+html, body {
+	/* Reset the document's margin values */
+	margin: 0;
+	/* Reset the document's padding values */
+	padding: 0;
+	/* Use the platform's native font as the default */
+	font-family: "Roboto", -apple-system, "San Francisco", "Segoe UI", "Helvetica Neue", sans-serif;
+	/* Define a reasonable base font size */
+	font-size: 12pt;
+
+	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
+
+	/* Use a non-white background color to make the content areas stick out from the full page box */
+	
+}
+/* Styles that are shared by all elements */
+* {
+	/* Include the content box as well as padding and border for precise definitions */
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.individual-page{
+
+	margin-top:40px;
+	margin-bottom:30px;
+}
+
+.page {
+	/* Styles for better appearance on screens only -- are reset to defaults in print styles later */
+
+	/* Divide single pages with some space and center all pages horizontally */
+	margin: 0cm auto;
+	/* Define a white paper background that sticks out from the darker overall background */
+	background: #fff;
+	/* Override outline from user agent stylesheets */
+	outline: 0;
+	margin-top:0px;
+	margin-bottom:0px;
+}
+/* Defines a class for manual page breaks via inserted .page-break element */
+/*div.page-break {
+	page-break-after: always;
+}*/
+
+@page {
+	
+	size: A4 portrait;
+	margin: 0!important;
+}
+/* When the document is actually printed */
+@media print {
+
+
+	html, body{
+		
+		background-color: #fff !important;
+		width: 210mm;
+    	height: 297mm;
+		/*visibility: hidden;*/
+	}
+
+
+	/*.a4-header{
+
+		border-style: none !important;
+	}
+
+	.a4-footer{
+
+		border-style: none !important;
+	}*/
+
+	/*.document {
+		
+		width: initial !important;
+		min-height: initial !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		background: initial !important;
+
+
+	}*/
+
+	.page{
+		
+	}
+	/*
+	.individual-page{
+		margin:0 !important;
+		padding:0 !important;
+		min-width:21cm !important;
+		min-height:29.7cm !important;
+		padding-left:2cm !important;
+		padding-right:2cm !important;
+
+		page-break-after: always;
+	}*/
+
+    
+}
+
+textarea{
+
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.a3, .a3-header, .a3-footer {
+	width: 29.7cm;
+	min-height: 42cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+
+}
+
+.a3-header{
+
+	min-height:2cm;
+
+}
+
+.a3-footer{
+
+	min-height:2cm;
+
+}
+
+
+.a4, .a4-header, .a4-footer{
+	width: 21cm;
+	min-height: 25.7cm;
+	max-height:25.7cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+	
+}
+
+.a4-header{
+
+	min-height:2cm;
+	height:2cm;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+
+}
+
+.a4-footer{
+	min-height:2cm;
+	height:2cm;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+
+}
+
+
+.uslegal, .uslegal-header, .uslegal-footer{
+	width: 21.6cm;
+	min-height: 35.6cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+}
+
+.uslegal-header{
+
+	min-height:2cm;
+
+}
+
+.uslegal-footer{
+
+	min-height:2cm;
+}
+
+.usletter, .usletter-header, .usletter-footer{
+	width: 21.6cm;
+	min-height: 27.9cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+}
+
+.usletter-header{
+
+	min-height:2cm;
+
+}
+
+.usletter-footer{
+
+	min-height:2cm;
+}
+
+.ustabloid, .ustabloid-header, .ustabloid-footer{
+	width: 27.9cm;
+	min-height: 43.2cm;
+	padding-left: 2cm;
+	padding-right: 2cm;
+}
+
+.ustabloid-header{
+
+	min-height:2cm;
+
+}
+
+.ustabloid-footer{
+
+	min-height: 2cm;
+}

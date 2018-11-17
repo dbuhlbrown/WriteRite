@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title id="documentTitle">Untitled</title>
+    <link href="./static/styles.css" rel="stylesheet" type="text/css">
+    <link href="./static/sheets-of-paper.css" rel="stylesheet" type="text/css">
+    <link href="./static/ruler.css" rel="stylesheet" type="text/css">
+    
+    <script>window.$ = window.jQuery = require('./static/jquery.js');</script>
+    
+
+
+  </head>
+
+  <body>
+
+
+    <div class="document">
+      <!--Must be named ruler-->
+      <div class="ruler"></div>
+
+      <div class="individual-page">
+      
+        <div class="a4-header page">
+        </div>
+
+        <div class="a4 page" contenteditable="true" role="textbox">
+        </div>
+
+        <div class="a4-footer page">
+        </div>
+      
+      </div>
+
+    </div>
+
+  </body>
+
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
+
+</html>
