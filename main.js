@@ -31,7 +31,7 @@ function createWindow () {
     db.getAll('recent_files', (succ, data)=>{
       //Doesn't work
       console.log("before send noRecentFiles")
-      console.log(mainWindow)
+      console.log(data)
       mainWindow.webContents.send('noRecentFiles')
 
     })

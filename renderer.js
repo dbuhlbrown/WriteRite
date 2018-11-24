@@ -7,12 +7,13 @@ let rulerGenerator = require("./src/ruler_generator.js");
 let DocumentPaginationHandler = require("./src/document_pagination_handler.js");
 const printer = require('electron-print');
 const fs = require('fs');
-
+var Mousetrap = require('mousetrap');
 class DocumentHelper{
 
 	constructor(){
 
-		this.first_page_html = "<div class='individual-page' id='first-page'><div class='a4-header page'></div> <div class='a4 page' contenteditable='true' role='textbox'><div><br></div><div></div></div><div class='a4-footer page'></div> </div>";
+		this.first_page_html = "<div class='individual-page inputor' id='page-1'><div class='a4-header page'></div> <div class='a4 page' contenteditable='true' role='textbox'><div><br></div><div></div></div><div class='a4-footer page'></div> </div>";
+
 		this.default_font = "";
 	}
 
@@ -22,8 +23,15 @@ class DocumentHelper{
 
 		this.page_height = $(".a4").height();
 		this.page_width = $(".a4").width();
-		this.list_of_pages = Array("first-page"); //first-page is special, the rest of the pages will be page-1, page-2, etc.
+		this.list_of_pages = Array("page-1"); //first-page is special, the rest of the pages will be page-1, page-2, etc.
 
+	}
+
+	generate_following_page( ){
+		console.log("running generate_following_page");
+		this.list_of_pages.push("page-"+this.list_of_pages.length+1)
+		return "<div class='individual-page' id='page-"+this.list_of_pages.length+"'><div class='a4-header page'></div> <div class='a4 page' contenteditable='true' role='textbox'><div><br></div><div></div></div><div class='a4-footer page'></div> </div>";
+		
 	}
 }
 
@@ -68,12 +76,41 @@ ipcRenderer.on('writePDF', (event,message) => {
 
 })
 
-function setup_listener( ){
 
+/*listeners*/
+/*I might need to make one big function that calls all my listeners
+
+function setup_listener( ){
 	document.querySelector('#create-new-file-link').addEventListener('click', createNewDocument)
 }
 
+/*This is needed to override the default behavior of control+a inside a div*/
+//Works quite well
+function setup_html_onkeypress_listener(){
+
+	$.hotkeys.options.filterContentEditable = false;
+
+	$(document).bind('keydown', 'ctrl+a', function(){
+  		console.log("ctrl+a pressed down");
+  		
+  		$(".a4").each(function(){
+  			this.contentEditable = false;
+  		});
+	});
+
+	$(document).bind('keyup', 'ctrl+a', function(){
+  		console.log("ctrl+a pressed up");
+  		
+  		$(".a4").each(function(){
+  			this.contentEditable = true;
+  			
+  		});
+	});
+}
+
 function createNewDocument(){
+	
+	setup_html_onkeypress_listener( )
 
 	const documentHelper = new DocumentHelper();
 
@@ -84,7 +121,7 @@ function createNewDocument(){
 	$(".document-editor").show();
 	//background-color: #eee;
 	$("html, body").css("background-color","#eee");
-	$(".document-editor").append("<div class='document'>"+documentHelper.first_page_html+"</div>");
+	$(".document-editor").append("<div class='document' id='document-holder'>"+documentHelper.first_page_html+"</div>");
 
 
 	//When a new document is made when we need to set up some objects

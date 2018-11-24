@@ -7,6 +7,7 @@
 .document-editor{
 
     display:none;
+    word-wrap: break-word;
 }
 .no-files-window{
 
