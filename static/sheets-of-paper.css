@@ -10,7 +10,7 @@ html, body {
 	/* Reset the document's padding values */
 	padding: 0;
 	/* Use the platform's native font as the default */
-	font-family: "Roboto", -apple-system, "San Francisco", "Segoe UI", "Helvetica Neue", sans-serif;
+	font-family: "Courier"
 	/* Define a reasonable base font size */
 	font-size: 12pt;
 
@@ -26,10 +26,17 @@ html, body {
 	-moz-box-sizing: border-box;
 }
 
+#document-holder{
+
+}
+
 .individual-page{
 
 	margin-top:40px;
 	margin-bottom:30px;
+
+	user-select: text;
+	overflow: visible;
 }
 
 .page {

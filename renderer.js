@@ -8,29 +8,34 @@ let DocumentPaginationHandler = require("./src/document_pagination_handler.js");
 const printer = require('electron-print');
 const fs = require('fs');
 var Mousetrap = require('mousetrap');
+
+//Handles most of the document settings
 class DocumentHelper{
 
 	constructor(){
 
-		this.first_page_html = "<div class='individual-page inputor' id='page-1'><div class='a4-header page'></div> <div class='a4 page' contenteditable='true' role='textbox'><div><br></div><div></div></div><div class='a4-footer page'></div> </div>";
+		this.first_page_html = "<div class='individual-page' id='page-1'><div class='usletter-header page'></div> <div class='usletter page content-area' contenteditable='true' role='textbox'><div><br></div></div><div class='usletter-footer page'></div> </div>";
+		this.list_of_pages = Array();
 
-		this.default_font = "";
 	}
+
 
 	//We can actually hardcode this to just grab any page, because every page should
 	//always have the same height.
 	calculate_page_values(){
 
-		this.page_height = $(".a4").height();
-		this.page_width = $(".a4").width();
-		this.list_of_pages = Array("page-1"); //first-page is special, the rest of the pages will be page-1, page-2, etc.
+		this.page_height = $(".content-area").height();
+		this.page_width = $(".content-area").width();
+		this.page_width_cm = 21.59; //by default letter size is us-letter, this only needs to be changed when loading in a file that has a different page size
+		//or when the page size is changed by the user.
+
+		 //first-page is special, the rest of the pages will be page-1, page-2, etc.
 
 	}
 
 	generate_following_page( ){
 		console.log("running generate_following_page");
-		this.list_of_pages.push("page-"+this.list_of_pages.length+1)
-		return "<div class='individual-page' id='page-"+this.list_of_pages.length+"'><div class='a4-header page'></div> <div class='a4 page' contenteditable='true' role='textbox'><div><br></div><div></div></div><div class='a4-footer page'></div> </div>";
+		return "<div class='individual-page' id='page-"+this.list_of_pages.length+"'><div class='usletter-header page'></div> <div class='usletter page content-area' contenteditable='true' role='textbox'><div><br></div></div><div class='usletter-footer page'></div> </div>";
 		
 	}
 }
@@ -47,6 +52,16 @@ ipcRenderer.on('noRecentFiles', (event,message) => {
 
 })
 
+
+//doesn't work
+ipcRenderer.on('editorSelectAll', (event,message) =>{
+
+	$(".document-editor").get(0).focus();
+	document.execcommand("selectAll");
+	console.log("editorSelectAll");
+	e.preventDefault();
+
+})
 
 //Since only the renderer can access the mainWindow, we will grab all of the
 //HTML we need and return the string.
@@ -77,11 +92,36 @@ ipcRenderer.on('writePDF', (event,message) => {
 })
 
 
+
 /*listeners*/
-/*I might need to make one big function that calls all my listeners
+/*I might need to make one big function that calls all my listeners*/
 
 function setup_listener( ){
 	document.querySelector('#create-new-file-link').addEventListener('click', createNewDocument)
+}
+
+
+function select_all_text(el){
+	var sel, range;
+	el.focus();
+	if (window.getSelection && document.createRange) { //Browser compatibility
+	  sel = window.getSelection();
+	  if(sel.toString() == ''){ //no text selection
+		 window.setTimeout(function(){
+			range = document.createRange(); //range object
+			range.selectNodeContents(el); //sets Range
+			sel.removeAllRanges(); //remove all ranges from selection
+			sel.addRange(range);//add Range to a Selection.
+		},1);
+	  }
+	}else if (document.selection) { //older ie
+		sel = document.selection.createRange();
+		if(sel.text == ''){ //no text selection
+			range = document.body.createTextRange();//Creates TextRange object
+			range.moveToElementText(el);//sets Range
+			range.select(); //make selection.
+		}
+	}
 }
 
 /*This is needed to override the default behavior of control+a inside a div*/
@@ -89,23 +129,40 @@ function setup_listener( ){
 function setup_html_onkeypress_listener(){
 
 	$.hotkeys.options.filterContentEditable = false;
-
+	
+	
 	$(document).bind('keydown', 'ctrl+a', function(){
   		console.log("ctrl+a pressed down");
   		
-  		$(".a4").each(function(){
-  			this.contentEditable = false;
-  		});
-	});
+  		select_all_text($("#document-holder")[0]);
 
+  		/*$(".content-area").each(function(){
+  			this.contentEditable = false;
+  			
+  		});*/
+
+  	
+
+	});
+	/*
 	$(document).bind('keyup', 'ctrl+a', function(){
   		console.log("ctrl+a pressed up");
   		
-  		$(".a4").each(function(){
+  		$(".content-area").each(function(){
   			this.contentEditable = true;
   			
   		});
+
+  		
 	});
+
+	*/
+    $('.content-area').on('selectstart', function () {
+        $(document).one('mouseup', function() {
+            alert(this.getSelection());
+        });
+    });
+   
 }
 
 function createNewDocument(){
@@ -122,16 +179,22 @@ function createNewDocument(){
 	//background-color: #eee;
 	$("html, body").css("background-color","#eee");
 	$(".document-editor").append("<div class='document' id='document-holder'>"+documentHelper.first_page_html+"</div>");
-
+	documentHelper.list_of_pages.push($("#page-1"))
 
 	//When a new document is made when we need to set up some objects
 	//This might need to work differently when loading files
-	const ruler = new rulerGenerator("auto","auto",21);
-	
+
 	documentHelper.calculate_page_values();
+	const ruler = new rulerGenerator("auto","auto",documentHelper.page_width_cm);
+	
 	const document_pagination_handler = new DocumentPaginationHandler(documentHelper);
 
 	ipcRenderer.send("OpenDocumentWriter");
 	
+}
+
+function loadDocument( ){
+
+
 }
 

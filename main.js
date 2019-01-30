@@ -119,7 +119,7 @@ const menuTemplate = [ {
               {
                   label: 'Select All',
                   accelerator: process.platform === 'darwin' ? 'Command+A' : 'Ctrl+A',
-                  click: () => { mainWindow.webContents.send('editorSelectAll'); }
+                  selector:"selectAll:"
               }
             ]
         },
